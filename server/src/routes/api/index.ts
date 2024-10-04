@@ -1,10 +1,10 @@
 import { Router } from 'express';
-// ADD EVENT ROUTER
+import { eventsRouter } from './events-routes.js';
 import { userRouter } from './user-routes.js';
 
 const router = Router();
 
-// ADD EVENT ROUTER
+router.use('/events', eventsRouter);
 router.use('/users', userRouter);
 
 export default router;

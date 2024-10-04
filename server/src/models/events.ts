@@ -1,36 +1,34 @@
-import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
-import { User } from './user';
+import { DataTypes, Sequelize, Model, Optional } from "sequelize";
+import { User } from "./user.js";
 
-// Event attributes interface
 interface EventAttributes {
   id: number;
   title: string;
-  status: string;
-  description: string;
-  organizerId: number; // Assuming an event has an organizer (User model)
-  date: Date; // Assuming events have a date
+  date: Date;
+  address: string;
+  thumbnail: string;
+  assignedUserId?: number;
 }
 
-// Event creation attributes interface with id as optional
-interface EventCreationAttributes extends Optional<EventAttributes, 'id'> {}
+interface EventCreationAttributes extends Optional<EventAttributes, "id"> {}
 
-// Event model definition
-export class Event extends Model<EventAttributes, EventCreationAttributes> implements EventAttributes {
+export class Event
+  extends Model<EventAttributes, EventCreationAttributes>
+  implements EventAttributes
+{
   public id!: number;
   public title!: string;
-  public status!: string;
-  public description!: string;
-  public organizerId!: number;
   public date!: Date;
+  public address!: string;
+  public thumbnail!: string;
+  public assignedUserId!: number;
 
-  // Associated User model (Organizer)
-  public readonly organizer?: User;
+  public readonly assignedUser?: User;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-// Event factory function for initializing the Event model
 export function EventFactory(sequelize: Sequelize): typeof Event {
   Event.init(
     {
@@ -43,25 +41,26 @@ export function EventFactory(sequelize: Sequelize): typeof Event {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      status: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      organizerId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
       date: {
         type: DataTypes.DATE,
         allowNull: false,
       },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      thumbnail: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      assignedUserId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
-      tableName: 'events',
+      tableName: "events",
+      timestamps: false,
       sequelize,
     }
   );

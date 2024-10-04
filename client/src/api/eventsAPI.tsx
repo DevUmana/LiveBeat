@@ -1,11 +1,73 @@
-import { TicketData } from '../interfaces/TicketData';
-import { ApiMessage } from '../interfaces/ApiMessage';
+// import { ApiMessage } from '../interfaces/ApiMessage';
+import { EventData } from '../interfaces/EventData';
 import Auth from '../utils/auth';
+import dotenv from 'dotenv';
 
-const retrieveTickets = async () => {
+dotenv.config();
+
+const api_key = process.env.SERPAPI_KEY;
+
+// External Calls
+
+// Making SerpAPI call by Concerts in city
+
+const searchConcertByCity = async (city: string) => { // city will be passed in from form
   try {
     const response = await fetch(
-      '/api/tickets/',
+      `https://serpapi.com/search.json?q=Concerts+in+${city}&engine=google&api_key=${api_key}`,
+    );
+
+    const data = await response.json();
+    const eventsData = data.events_results;
+    const eventsArray = [];
+    eventsArray.push(eventsData[0]);
+    eventsArray.push(eventsData[1]);
+    eventsArray.push(eventsData[2]);
+
+    console.log(eventsArray);
+
+    if(!response.ok) {
+      throw new Error('invalid API response, check network tab!');
+    }
+
+    return eventsArray;
+  } catch (err) {
+    console.log('Error from data retrieval: ', err);
+    return [];
+  }
+};
+
+// Making SerpAPI call by Concerts in city and within a date range
+
+const searchConcertByCityandDate = async (city: string, date1: string, date2: string) => {
+  try {
+    const response = await fetch(
+      `https://serpapi.com/search.json?q=Concerts+in+${city}+between${date1}+and+${date2}&engine=google&api_key=${api_key}`,
+    );
+    const data = await response.json();
+
+    const eventsArray = [];
+    eventsArray.push(data.events_results[0]);
+    eventsArray.push(data.events_results[1]);
+    eventsArray.push(data.events_results[2]);
+
+    if(!response.ok) {
+      throw new Error('invalid API response, check network tab!');
+    }
+
+    return eventsArray;
+  } catch (err) {
+    console.log('Error from data retrieval: ', err);
+    return [];
+  }
+};
+
+// Internal Calls
+
+const retrieveEvents = async () => {
+  try {
+    const response = await fetch(
+      '/api/events/',
       {
         headers: {
           'Content-Type': 'application/json',
@@ -26,10 +88,10 @@ const retrieveTickets = async () => {
   }
 };
 
-const retrieveTicket = async (id: number | null): Promise<TicketData> => {
+const retrieveEvent = async (id: number | null): Promise<EventData> => {
   try {
     const response = await fetch(
-      `/api/tickets/${id}`,
+      `/api/events/${id}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -50,10 +112,10 @@ const retrieveTicket = async (id: number | null): Promise<TicketData> => {
   }
 }
 
-const createTicket = async (body: TicketData) => {
+const createEvent = async (body: EventData) => {
   try {
     const response = await fetch(
-      '/api/tickets/', {
+      '/api/events/', {
         method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -77,54 +139,54 @@ const createTicket = async (body: TicketData) => {
   }
 }
 
-const updateTicket = async (ticketId: number, body: TicketData): Promise<TicketData> => {
-  try {
-    const response = await fetch(
-      `/api/tickets/${ticketId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Auth.getToken()}`
-        },
-        body: JSON.stringify(body)
-      }
-    )
-    const data = await response.json();
+// const updateTicket = async (ticketId: number, body: TicketData): Promise<TicketData> => {
+//   try {
+//     const response = await fetch(
+//       `/api/tickets/${ticketId}`, {
+//         method: 'PUT',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Authorization: `Bearer ${Auth.getToken()}`
+//         },
+//         body: JSON.stringify(body)
+//       }
+//     )
+//     const data = await response.json();
 
-    if(!response.ok) {
-      throw new Error('invalid API response, check network tab!');
-    }
+//     if(!response.ok) {
+//       throw new Error('invalid API response, check network tab!');
+//     }
 
-    return data;
-  } catch (err) {
-    console.error('Update did not work', err);
-    return Promise.reject('Update did not work');
-  }
-};
+//     return data;
+//   } catch (err) {
+//     console.error('Update did not work', err);
+//     return Promise.reject('Update did not work');
+//   }
+// };
 
-const deleteTicket = async (ticketId: number): Promise<ApiMessage> => {
-  try {
-    const response = await fetch(
-      `/api/tickets/${ticketId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Auth.getToken()}`
-        }
-      }
-    )
-    const data = await response.json();
+// const deleteTicket = async (ticketId: number): Promise<ApiMessage> => {
+//   try {
+//     const response = await fetch(
+//       `/api/tickets/${ticketId}`, {
+//         method: 'DELETE',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Authorization: `Bearer ${Auth.getToken()}`
+//         }
+//       }
+//     )
+//     const data = await response.json();
 
-    if(!response.ok) {
-      throw new Error('invalid API response, check network tab!');
-    }
+//     if(!response.ok) {
+//       throw new Error('invalid API response, check network tab!');
+//     }
 
-    return data;
-  } catch (err) {
-    console.error('Error in deleting ticket', err);
-    return Promise.reject('Could not delete ticket');
-  }
-};
+//     return data;
+//   } catch (err) {
+//     console.error('Error in deleting ticket', err);
+//     return Promise.reject('Could not delete ticket');
+//   }
+// };
 
 
-export { createTicket, deleteTicket, retrieveTickets, retrieveTicket, updateTicket};
+export { searchConcertByCity, searchConcertByCityandDate, retrieveEvents, retrieveEvent, createEvent };

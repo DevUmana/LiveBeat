@@ -23,17 +23,23 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "build": "^0.1.4",
+    "cookie": "^0.7.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "js-yaml": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.5",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "uglify-js": "^3.19.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.13",
     "@types/jsonwebtoken": "^9.0.6",
+    "jest": "^29.7.0",
     "typescript": "^5.4.5"
   }
 }

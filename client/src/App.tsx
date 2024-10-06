@@ -1,17 +1,17 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="container">
-      <Navbar />
+      <Header />
       <main>
         <Outlet /> {/* This renders the children components */}
       </main>
+      <Footer />
     </div>
   );
 }
 
 export default App;
-
-

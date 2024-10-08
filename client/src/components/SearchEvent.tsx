@@ -52,7 +52,9 @@ const SearchEvent = () => {
               <h2>Search for an event</h2>
             </div>
           ) : (
-            <Table events={events} />
+            <div className="search-results">
+              <Table events={events} />
+            </div>
           )}
         </div>
         {!storedEvents ? null : <StoredEvents />}

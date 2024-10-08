@@ -1,4 +1,21 @@
-const Table = () => {
+import React from "react";
+
+interface Event {
+  title: string;
+  date: {
+    start_date: string;
+    when: string;
+  };
+  address: string[];
+  link: string;
+  thumbnail: string;
+}
+
+interface TableProps {
+  events: Event[];
+}
+
+const Table: React.FC<TableProps> = ({ events }) => {
   return (
     <>
       <table>
@@ -6,29 +23,33 @@ const Table = () => {
           <tr>
             <th>Event Name</th>
             <th>Date</th>
-            <th>Location</th>
-            <th>Time</th>
+            <th>Address</th>
+            <th>Link</th>
+            <th>Thumbnail</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Event 1</td>
-            <td>01/01/2025</td>
-            <td>Location 1</td>
-            <td>12:00 PM</td>
-          </tr>
-          <tr>
-            <td>Event 2</td>
-            <td>02/02/2025</td>
-            <td>Location 2</td>
-            <td>1:00 PM</td>
-          </tr>
-          <tr>
-            <td>Event 3</td>
-            <td>03/03/2025</td>
-            <td>Location 3</td>
-            <td>2:00 PM</td>
-          </tr>
+          {events.map((event, index) => (
+            <tr key={index}>
+              <td>{event.title}</td>
+              <td>
+                {event.date.start_date} - {event.date.when}
+              </td>
+              <td>{event.address.join(", ")}</td>
+              <td>
+                <a href={event.link} target="_blank" rel="noopener noreferrer">
+                  More Details
+                </a>
+              </td>
+              <td>
+                <img
+                  src={event.thumbnail}
+                  alt={`${event.title} thumbnail`}
+                  style={{ width: "100px", height: "auto" }}
+                />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

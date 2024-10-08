@@ -1,30 +1,32 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import StoredEvents from "./StoredEvents";
+import { retrieveEvents } from "../api/serpAPI";
 import Table from "./Table";
 
 const SearchEvent = () => {
-  const [search, setSearch] = useState<String | undefined>("");
-  const [result, setResult] = useState<Boolean | undefined>(false);
-  const [storedEvents, setStoredEvents] = useState<Boolean | undefined>(false);
+  const [search, setSearch] = useState<string | undefined>("");
+  const [result, setResult] = useState<boolean | undefined>(false);
+  const [storedEvents, setStoredEvents] = useState<boolean | undefined>(false);
+  const [events, setEvents] = useState([]);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    setEvents(await retrieveEvents(search));
 
     if (result === true) {
       setResult(false);
       setStoredEvents(false);
     } else {
       setResult(true);
-      setStoredEvents(true);
+      setStoredEvents(false);
     }
   };
 
   const handleTextChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(search);
     setSearch(e.target.value);
-    console.log(search);
   };
 
   return (
@@ -50,7 +52,7 @@ const SearchEvent = () => {
               <h2>Search for an event</h2>
             </div>
           ) : (
-            <Table />
+            <Table events={events} />
           )}
         </div>
         {!storedEvents ? null : <StoredEvents />}

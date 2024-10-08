@@ -34,3 +34,26 @@ export const getEvents = async (req: Request, res: Response): Promise<void> => {
 
   console.log("Fetching events in", city);
 };
+
+export const getUpcomingEvents = async (
+  _req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    // Fetch events from Ticketmaster API, only get unique events
+    const response = await fetch(
+      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&classificationName=music&city=New+York`
+    );
+
+    if (!response.ok) {
+      throw new Error("Invalid API response, check network tab!");
+    }
+
+    const data = await response.json();
+
+    res.json(data); // Send the events data as a JSON response
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).json({ error: "An error occurred while fetching events" });
+  }
+};

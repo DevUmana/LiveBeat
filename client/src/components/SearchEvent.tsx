@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import StoredEvents from "./StoredEvents";
-import { retrieveEvents } from "../api/serpAPI";
+import { retrieveEvents } from "../api/ticketmasterAPI";
 import Table from "./Table";
 
 const SearchEvent = () => {

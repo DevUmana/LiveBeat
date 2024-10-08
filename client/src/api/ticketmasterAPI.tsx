@@ -1,6 +1,6 @@
 const retrieveEvents = async (city: string | undefined) => {
   try {
-    const response = await fetch("/api/serpapi/", {
+    const response = await fetch("/api/search/", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -13,12 +13,12 @@ const retrieveEvents = async (city: string | undefined) => {
     }
 
     const data = await response.json();
-    const events = data.map((event: any) => ({
-      title: event.title,
-      date: event.date,
-      address: event.address,
-      link: event.link,
-      thumbnail: event.thumbnail,
+    const events = data._embedded.events.map((event: any) => ({
+      title: event.name,
+      date: event.dates.start.localDate,
+      address: event._embedded.venues[0].name,
+      link: event.url,
+      thumbnail: event.images[0].url,
     }));
 
     console.log("Events data:", events);

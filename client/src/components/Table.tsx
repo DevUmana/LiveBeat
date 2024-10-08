@@ -2,11 +2,8 @@ import React from "react";
 
 interface Event {
   title: string;
-  date: {
-    start_date: string;
-    when: string;
-  };
-  address: string[];
+  date: string;
+  address: string;
   link: string;
   thumbnail: string;
 }
@@ -32,20 +29,18 @@ const Table: React.FC<TableProps> = ({ events }) => {
           {events.map((event, index) => (
             <tr key={index}>
               <td>{event.title}</td>
+              <td>{event.date}</td>
+              <td>{event.address}</td>
               <td>
-                {event.date.start_date} - {event.date.when}
-              </td>
-              <td>{event.address.join(", ")}</td>
-              <td>
-                <a href={event.link} target="_blank" rel="noopener noreferrer">
-                  More Details
+                <a href={event.link} target="_blank" rel="noreferrer">
+                  Event Link
                 </a>
               </td>
               <td>
                 <img
                   src={event.thumbnail}
-                  alt={`${event.title} thumbnail`}
-                  style={{ width: "100px", height: "auto" }}
+                  alt={event.title}
+                  style={{ width: "100px" }}
                 />
               </td>
             </tr>

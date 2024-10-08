@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { serpapiRouter } from "./serpapi-routes.js";
 import { eventsRouter } from "./events-routes.js";
 import { userRouter } from "./user-routes.js";
 import { authenticateToken } from "../../middleware/auth.js";
+import { ticketmasterRouter } from "./ticketmaster-routes.js";
 
 const router = Router();
 
-router.use("/serpapi", serpapiRouter);
+router.use("/search", ticketmasterRouter);
 router.use("/events", authenticateToken, eventsRouter);
 router.use("/users", authenticateToken, userRouter);
 

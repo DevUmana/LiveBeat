@@ -1,31 +1,40 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import StoredEvents from "./StoredEvents";
 import { retrieveEvents } from "../api/ticketmasterAPI";
+import { getEvents } from "../api/eventsAPI";
 import Table from "./Table";
 
 const SearchEvent = () => {
-  const [search, setSearch] = useState<string | undefined>("");
-  const [result, setResult] = useState<boolean | undefined>(false);
-  const [storedEvents, setStoredEvents] = useState<boolean | undefined>(false);
+  const [search, setSearch] = useState<string>("");
+  const [eventList, setEventList] = useState([]);
   const [events, setEvents] = useState([]);
+  const [searchMessage, setSearchMessage] = useState<string>("");
+
+  const fetchEvents = async () => {
+    const storedEvents = await getEvents();
+    setEventList(storedEvents || []);
+  };
+
+  useEffect(() => {
+    fetchEvents(); // Initial load to fetch stored events
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    setEvents(await retrieveEvents(search));
-
-    if (result === true) {
-      setResult(false);
-      setStoredEvents(false);
-    } else {
-      setResult(true);
-      setStoredEvents(false);
+    if (!search) {
+      setSearchMessage("Please enter a city");
+      return;
     }
+
+    const retrievedEvents = await retrieveEvents(search);
+    setEvents(retrievedEvents);
+    setSearchMessage(search ? `Results for ${search}` : "");
+    // clear the search field
+    setSearch("");
   };
 
-  const handleTextChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
@@ -35,29 +44,31 @@ const SearchEvent = () => {
         <div className="container-se">
           <div className="search-event">
             <form onSubmit={handleSubmit}>
-              <label htmlFor="search">Search Event: </label>
               <input
                 type="text"
                 id="search"
                 name="search"
+                placeholder="Enter a City"
+                value={search}
                 onChange={handleTextChange}
               />
-              <button type="submit" onSubmit={handleSubmit}>
-                Search
-              </button>
+              <button type="submit">Search</button>
             </form>
+            <p>{searchMessage}</p>
           </div>
-          {!result ? (
-            <div>
+          {events.length === 0 ? (
+            <div className="no-results">
               <h2>Search for an event</h2>
             </div>
           ) : (
             <div className="search-results">
-              <Table events={events} />
+              <Table events={events} onEventAdded={fetchEvents} />
             </div>
           )}
         </div>
-        {!storedEvents ? null : <StoredEvents />}
+        {eventList.length > 0 && (
+          <StoredEvents eventList={eventList} onEventRemoved={fetchEvents} />
+        )}
       </section>
     </>
   );

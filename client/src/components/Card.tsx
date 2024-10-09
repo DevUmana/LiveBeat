@@ -21,7 +21,7 @@ const Card: React.FC<CardProps> = ({ events }) => {
         </div>
         <div className="card-content">
           <h3>{events.title}</h3>
-          <p>{events.date}</p>
+          <p>{new Date(events.date).toLocaleDateString()}</p>
           <p>{events.address}</p>
           <a href={events.link} target="_blank" rel="noreferrer">
             More info

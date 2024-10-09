@@ -16,7 +16,7 @@ export const getEvents = async (req: Request, res: Response): Promise<void> => {
   try {
     // Fetch events from Ticketmaster API
     const response = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=${city}&classificationName=music`
+      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=${city}&classificationName=music&sort=date,name,asc`
     );
 
     if (!response.ok) {
@@ -42,7 +42,7 @@ export const getUpcomingEvents = async (
   try {
     // Fetch events from Ticketmaster API, only get unique events
     const response = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&classificationName=music&city=New+York`
+      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&classificationName=music&city=New+York&sort=date,name,asc`
     );
 
     if (!response.ok) {

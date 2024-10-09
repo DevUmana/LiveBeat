@@ -109,6 +109,10 @@ footer {
   color: var(--secondary-color);
 }
 
+.login-notice h1 {
+  text-align: center;
+}
+
 .eventsNearBy {
   display: flex;
   flex-direction: row;

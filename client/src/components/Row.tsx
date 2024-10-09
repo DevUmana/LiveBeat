@@ -1,15 +1,8 @@
 import React from "react";
-
-interface Event {
-  title: string;
-  date: string;
-  address: string;
-  link: string;
-  thumbnail: string;
-}
+import { EventData } from "../interfaces/EventData";
 
 interface RowProps {
-  event: Event;
+  event: EventData;
   addEvent: () => void;
 }
 
@@ -17,13 +10,17 @@ const Row: React.FC<RowProps> = ({ event, addEvent }) => {
   return (
     <tr>
       <td>{event.title}</td>
-      <td>{new Date(event.date).toLocaleDateString()}</td>
+      <td>{event.date ? new Date(event.date).toLocaleDateString() : "N/A"}</td>
       <td>{event.address}</td>
       <td>
-        <img src={event.thumbnail} alt={event.title} className="row-img" />
+        <img
+          src={event.thumbnail ?? ""}
+          alt={event.title ?? undefined}
+          className="row-img"
+        />
       </td>
       <td>
-        <a href={event.link} target="_blank" rel="noreferrer">
+        <a href={event.link ?? ""} target="_blank" rel="noreferrer">
           More info
         </a>
       </td>

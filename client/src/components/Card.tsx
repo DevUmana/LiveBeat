@@ -1,29 +1,26 @@
 import React from "react";
-
-interface Event {
-  title: string;
-  date: string;
-  address: string;
-  link: string;
-  thumbnail: string;
-}
+import { EventData } from "../interfaces/EventData";
 
 interface CardProps {
-  events: Event;
+  event: EventData;
 }
 
-const Card: React.FC<CardProps> = ({ events }) => {
+const Card: React.FC<CardProps> = ({ event }) => {
   return (
     <>
       <div className="card">
         <div className="card-image">
-          <img src={events.thumbnail} alt={events.title} />
+          <img src={event.thumbnail ?? ""} alt={event.title ?? undefined} />
         </div>
         <div className="card-content">
-          <h3>{events.title}</h3>
-          <p>{new Date(events.date).toLocaleDateString()}</p>
-          <p>{events.address}</p>
-          <a href={events.link} target="_blank" rel="noreferrer">
+          <h3>{event.title}</h3>
+          <p>
+            {event.date
+              ? new Date(event.date).toLocaleDateString()
+              : "Date not available"}
+          </p>
+          <p>{event.address}</p>
+          <a href={event.link || "#"} target="_blank" rel="noreferrer">
             More info
           </a>
         </div>

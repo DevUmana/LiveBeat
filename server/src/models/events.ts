@@ -1,5 +1,4 @@
 import { DataTypes, Sequelize, Model, Optional } from "sequelize";
-//import { User } from "./user.js";
 
 interface EventAttributes {
   id: number;
@@ -8,7 +7,7 @@ interface EventAttributes {
   address: string;
   thumbnail: string;
   link: string;
-  // assignedUserId?: number;
+  userName: string;
 }
 
 interface EventCreationAttributes extends Optional<EventAttributes, "id"> {}
@@ -23,9 +22,7 @@ export class Event
   public address!: string;
   public thumbnail!: string;
   public link!: string;
-  // public assignedUserId!: number;
-
-  // public readonly assignedUser?: User;
+  public userName!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -59,10 +56,11 @@ export function EventFactory(sequelize: Sequelize): typeof Event {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // assignedUserId: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: true,
-      // },
+      userName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
     },
     {
       tableName: "events",

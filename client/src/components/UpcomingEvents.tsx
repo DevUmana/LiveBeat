@@ -21,7 +21,7 @@ const UpcomingEvents = () => {
           <h2>Upcoming Events!</h2>
           <div className="events">
             {events.map((event, index) => (
-              <Card key={index} events={event} />
+              <Card key={index} event={event} />
             ))}
           </div>
         </div>

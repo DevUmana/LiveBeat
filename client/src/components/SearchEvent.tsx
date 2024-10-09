@@ -29,6 +29,7 @@ const SearchEvent = () => {
 
     const retrievedEvents = await retrieveEvents(search);
     setEvents(retrievedEvents);
+
     setSearchMessage(search ? `Results for ${search}` : "");
     // clear the search field
     setSearch("");

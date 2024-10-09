@@ -2,9 +2,13 @@ import { Request, Response } from "express";
 import { Event } from "../models/events.js";
 
 // GET /Events
-export const getAllEvents = async (_req: Request, res: Response) => {
+export const getAllEvents = async (req: Request, res: Response) => {
+  // get the user from the request
+  const user = req.user?.username;
+
   try {
-    const events = await Event.findAll();
+    // find all the events for the given user
+    const events = await Event.findAll({ where: { userName: user } });
     res.json(events);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -29,7 +33,7 @@ export const getEventById = async (req: Request, res: Response) => {
 // POST /Events
 export const createEvent = async (req: Request, res: Response) => {
   const { title, date, address, thumbnail, link } = req.body;
-  console.log(req.body);
+  const userName = req.user?.username || "defaultUserName";
   try {
     const newEvent = await Event.create({
       title,
@@ -37,6 +41,7 @@ export const createEvent = async (req: Request, res: Response) => {
       address,
       thumbnail,
       link,
+      userName,
     });
     res.status(201).json(newEvent);
   } catch (error: any) {

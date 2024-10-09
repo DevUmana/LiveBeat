@@ -1,27 +1,20 @@
 import React from "react";
 import Row from "./Row";
 import { createEvent, getEvents } from "../api/eventsAPI";
-
-interface Event {
-  title: string;
-  date: string;
-  address: string;
-  link: string;
-  thumbnail: string;
-}
+import { EventData } from "../interfaces/EventData";
 
 interface TableProps {
-  events: Event[];
+  events: EventData[];
   onEventAdded: () => void; // Callback function to notify parent of new event addition
 }
 
 // add event to the list
-const addEvent = async (event: Event, onEventAdded: () => void) => {
+const addEvent = async (event: EventData, onEventAdded: () => void) => {
   console.log("Adding event", event);
 
   // check if the event already exists
   const events = await getEvents();
-  const foundEvent = events.find((e: Event) => e.title === event.title);
+  const foundEvent = events.find((e: EventData) => e.title === event.title);
 
   if (foundEvent) {
     console.log("Event already exists");

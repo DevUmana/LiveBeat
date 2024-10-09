@@ -1,8 +1,11 @@
+import Auth from "../utils/auth";
+
 const retrieveEvents = async (city: string | undefined) => {
   try {
     const response = await fetch("/api/search/", {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${Auth.getToken()}`,
       },
       method: "POST",
       body: JSON.stringify({ city: city }),
@@ -38,6 +41,7 @@ const retrieveUpcomingEvents = async () => {
     const response = await fetch("/api/search/upcoming", {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${Auth.getToken()}`,
       },
       method: "GET",
     });

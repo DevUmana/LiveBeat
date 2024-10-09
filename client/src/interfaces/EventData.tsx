@@ -4,4 +4,5 @@ export interface EventData {
   address: string | null;
   link: string | null;
   thumbnail: string | null;
+  userId: number | null;
 }

@@ -20,7 +20,9 @@ export const login = async (req: Request, res: Response) => {
 
   const secretKey = process.env.JWT_SECRET_KEY || "";
 
-  const token = jwt.sign({ username }, secretKey, { expiresIn: "15m" });
+  const userId = user.id;
+
+  const token = jwt.sign({ username, userId }, secretKey, { expiresIn: "15m" });
   return res.json({ token });
 };
 

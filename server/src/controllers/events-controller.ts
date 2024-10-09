@@ -28,14 +28,15 @@ export const getEventById = async (req: Request, res: Response) => {
 
 // POST /Events
 export const createEvent = async (req: Request, res: Response) => {
-  const { title, date, address, thumbnail, assignedUserId } = req.body;
+  const { title, date, address, thumbnail, link } = req.body;
+  console.log(req.body);
   try {
     const newEvent = await Event.create({
       title,
       date,
       address,
       thumbnail,
-      assignedUserId,
+      link,
     });
     res.status(201).json(newEvent);
   } catch (error: any) {

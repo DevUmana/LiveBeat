@@ -1,4 +1,6 @@
 import React from "react";
+import Row from "./Row";
+import { createEvent, getEvents } from "../api/eventsAPI";
 
 interface Event {
   title: string;
@@ -10,9 +12,27 @@ interface Event {
 
 interface TableProps {
   events: Event[];
+  onEventAdded: () => void; // Callback function to notify parent of new event addition
 }
 
-const Table: React.FC<TableProps> = ({ events }) => {
+// add event to the list
+const addEvent = async (event: Event, onEventAdded: () => void) => {
+  console.log("Adding event", event);
+
+  // check if the event already exists
+  const events = await getEvents();
+  const foundEvent = events.find((e: Event) => e.title === event.title);
+
+  if (foundEvent) {
+    console.log("Event already exists");
+    return;
+  }
+
+  await createEvent(event);
+  onEventAdded(); // Notify parent component to refresh the event list
+};
+
+const Table: React.FC<TableProps> = ({ events, onEventAdded }) => {
   return (
     <>
       <table>
@@ -20,30 +40,19 @@ const Table: React.FC<TableProps> = ({ events }) => {
           <tr>
             <th>Event Name</th>
             <th>Date</th>
-            <th>Address</th>
-            <th>Link</th>
+            <th>Location</th>
             <th>Thumbnail</th>
+            <th>Link</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {events.map((event, index) => (
-            <tr key={index}>
-              <td>{event.title}</td>
-              <td>{event.date}</td>
-              <td>{event.address}</td>
-              <td>
-                <a href={event.link} target="_blank" rel="noreferrer">
-                  Event Link
-                </a>
-              </td>
-              <td>
-                <img
-                  src={event.thumbnail}
-                  alt={event.title}
-                  style={{ width: "100px" }}
-                />
-              </td>
-            </tr>
+            <Row
+              key={index}
+              event={event}
+              addEvent={() => addEvent(event, onEventAdded)} // Pass the callback to addEvent
+            />
           ))}
         </tbody>
       </table>

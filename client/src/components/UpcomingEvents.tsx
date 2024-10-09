@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { retrieveUpcomingEvents } from "../api/ticketmasterAPI";
 import Card from "./Card";
 
-const EventNearBy = () => {
+const UpcomingEvents = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -30,4 +30,4 @@ const EventNearBy = () => {
   );
 };
 
-export default EventNearBy;
+export default UpcomingEvents;

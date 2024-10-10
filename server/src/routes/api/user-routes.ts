@@ -19,7 +19,7 @@ router.get("/", authenticateToken, getAllUsers);
 router.get("/:id", authenticateToken, getUserById);
 
 // POST /users - Create a new user
-router.post("/",  createUser);
+router.post("/", createUser);
 
 // PUT /users/:id - Update a user by id
 router.put("/:id", authenticateToken, updateUser);
@@ -27,6 +27,7 @@ router.put("/:id", authenticateToken, updateUser);
 // DELETE /users/:id - Delete a user by id
 router.delete("/:id", authenticateToken, deleteUser);
 
+// GET /users/current - Get the current user
 router.get("/current", authenticateToken, getCurrentUser);
 
 export { router as userRouter };

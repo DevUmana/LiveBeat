@@ -9,7 +9,7 @@ const router = Router();
 
 router.use("/search", authenticateToken, ticketmasterRouter);
 router.use("/events", authenticateToken, eventsRouter);
-router.use("/hotels", hotelsRouter);
+router.use("/hotels", authenticateToken, hotelsRouter);
 router.use("/users", userRouter);
 
 export default router;

@@ -2,10 +2,12 @@ import { useState, useLayoutEffect, useEffect } from "react";
 import UpcomingEvents from "../components/UpcomingEvents";
 import SearchEvent from "../components/SearchEvent";
 import AuthChecker from "../components/AuthChecker";
+import Hotels from "../components/Hotels";
 import auth from "../utils/auth";
 
 const HomePage = () => {
   const [loginCheck, setLoginCheck] = useState(false);
+  const [selectedCity, setSelectedCity] = useState("");
 
   const checkLogin = () => {
     if (auth.loggedIn()) {
@@ -33,7 +35,8 @@ const HomePage = () => {
       ) : (
         <>
           <UpcomingEvents />
-          <SearchEvent />
+          <SearchEvent city={setSelectedCity} />
+          {selectedCity && <Hotels city={selectedCity} />}
         </>
       )}
     </>

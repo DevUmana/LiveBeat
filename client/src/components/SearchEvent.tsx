@@ -5,7 +5,11 @@ import { getEvents } from "../api/eventsAPI";
 import { EventData } from "../interfaces/EventData";
 import Table from "./Table";
 
-const SearchEvent = () => {
+interface SearchEventProps {
+  city: (cityName: string) => void;
+}
+
+const SearchEvent = ({ city }: SearchEventProps) => {
   const [search, setSearch] = useState<string>("");
   const [eventList, setEventList] = useState([]);
   const [events, setEvents] = useState<EventData[]>([]);
@@ -30,7 +34,7 @@ const SearchEvent = () => {
 
     const retrievedEvents = await retrieveEvents(search);
     setEvents(retrievedEvents);
-
+    city(search);
     setSearchMessage(search ? `Results for ${search}` : "");
     // clear the search field
     setSearch("");

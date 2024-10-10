@@ -1,4 +1,5 @@
 import Auth from "../utils/auth";
+import { EventData } from "../interfaces/EventData";
 
 const retrieveEvents = async (city: string | undefined) => {
   try {
@@ -16,9 +17,10 @@ const retrieveEvents = async (city: string | undefined) => {
     }
 
     const data = await response.json();
-    const events = data._embedded.events.map((event: any) => ({
+
+    const events: EventData[] = data._embedded.events.map((event: any) => ({
       title: event.name,
-      date: event.dates.start.localDate,
+      date: event.dates.start.dateTime,
       address: event._embedded.venues[0].name,
       link: event.url,
       thumbnail: event.images[0].url,
@@ -28,6 +30,8 @@ const retrieveEvents = async (city: string | undefined) => {
       (event: any, index: number, self: any) =>
         index === self.findIndex((t: any) => t.title === event.title)
     );
+
+    console.log("Unique Events:", uniqueEvents);
 
     return uniqueEvents; // Return the transformed events array
   } catch (err) {
@@ -52,9 +56,9 @@ const retrieveUpcomingEvents = async () => {
 
     const data = await response.json();
 
-    const events = data._embedded.events.map((event: any) => ({
+    const events: EventData[] = data._embedded.events.map((event: any) => ({
       title: event.name,
-      date: event.dates.start.localDate,
+      date: event.dates.start.dateTime,
       address: event._embedded.venues[0].name,
       link: event.url,
       thumbnail: event.images[0].url,

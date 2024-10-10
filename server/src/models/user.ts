@@ -27,6 +27,11 @@ export class User
     const saltRounds = 10;
     this.password = await bcrypt.hash(password, saltRounds);
   }
+
+  // Method to verify password
+  public async verifyPassword(password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this.password);
+  }
 }
 
 export function UserFactory(sequelize: Sequelize): typeof User {
@@ -46,6 +51,9 @@ export function UserFactory(sequelize: Sequelize): typeof User {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          isEmail: true,
+        },
       },
       password: {
         type: DataTypes.STRING,
@@ -54,14 +62,18 @@ export function UserFactory(sequelize: Sequelize): typeof User {
     },
     {
       tableName: "users",
-      timestamps: false,
+      timestamps: true,
       sequelize,
       hooks: {
         beforeCreate: async (user: User) => {
-          await user.setPassword(user.password);
+          if (user.password) {
+            await user.setPassword(user.password);
+          }
         },
         beforeUpdate: async (user: User) => {
-          await user.setPassword(user.password);
+          if (user.changed("password")) {
+            await user.setPassword(user.password);
+          }
         },
       },
     }

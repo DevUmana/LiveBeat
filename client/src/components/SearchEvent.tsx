@@ -2,12 +2,13 @@ import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import StoredEvents from "./StoredEvents";
 import { retrieveEvents } from "../api/ticketmasterAPI";
 import { getEvents } from "../api/eventsAPI";
+import { EventData } from "../interfaces/EventData";
 import Table from "./Table";
 
 const SearchEvent = () => {
   const [search, setSearch] = useState<string>("");
   const [eventList, setEventList] = useState([]);
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<EventData[]>([]);
   const [searchMessage, setSearchMessage] = useState<string>("");
 
   const fetchEvents = async () => {

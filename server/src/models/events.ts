@@ -7,7 +7,7 @@ interface EventAttributes {
   address: string;
   thumbnail: string;
   link: string;
-  userName: string;
+  userId: number;
 }
 
 interface EventCreationAttributes extends Optional<EventAttributes, "id"> {}
@@ -22,7 +22,7 @@ export class Event
   public address!: string;
   public thumbnail!: string;
   public link!: string;
-  public userName!: string;
+  public userId!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -56,16 +56,20 @@ export function EventFactory(sequelize: Sequelize): typeof Event {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      userName: {
-        type: DataTypes.STRING,
+      userId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
     },
     {
       tableName: "events",
-      timestamps: false,
       sequelize,
+      timestamps: true,
     }
   );
 

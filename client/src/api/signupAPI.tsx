@@ -15,12 +15,13 @@ const signUp = async (signUpData: newUser) => {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error("User information not retrieved, check network tab!");
+            throw new Error(data.message);
         }
         console.log(data);
         return data;
     } catch (err) {
         console.log("Error from user signup: ", err);
+        return err;
     }
 };
 

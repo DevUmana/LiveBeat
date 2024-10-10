@@ -9,6 +9,7 @@ const SignUp = () => {
         username: "",
         email: "",
         password: "",
+        confirmPassword: "",
     });
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -23,36 +24,36 @@ const SignUp = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (!signUpData.username || !signUpData.email || !signUpData.password) {
-            setErrorMessage("Please fill out all fields");
-            return;
-        }
 
         try {
             const data = await signUp(signUpData);
+            if(data instanceof Error) {
+                setErrorMessage(data?.message);
+                return;
+            }
             console.log(data);
-            setErrorMessage("User created successfully");
-            const userInfo: UserLogin = { username: signUpData.username, password: signUpData.password }
+            setErrorMessage(data?.message || "Failed to sign up");
             try {
+                const userInfo: UserLogin = { username: signUpData.username, password: signUpData.password };
                 const data = await login(userInfo);
                 console.log(data);
                 AuthService.login(data.token);
                 window.location.assign("/");
             } catch (err) {
                 console.error("Failed to login", err);
-                setErrorMessage("Failed to login");
+                setErrorMessage(`${err}`);
             }
         } catch (err) {
             console.error("Failed to sign up", err);
-            setErrorMessage("Failed to sign up");
+            setErrorMessage(`${err}`);
         }
     };
 
     return (
-        <div className='container'>
-            <form className='form'
+        <div className='signUpContainer'>
+            <h1>Create A New Account</h1>
+            <form className='signUpForm'
             onSubmit={handleSubmit}>
-                <h1>Create A New Account</h1>
                 <label>Username</label>
                 <input
                     type='text'
@@ -74,8 +75,15 @@ const SignUp = () => {
                     value={signUpData.password || ''}
                     onChange={handleChange}
                 />
+                <label>Confirm Password</label>
+                <input
+                    type='password'
+                    name='confirmPassword'
+                    value={signUpData.confirmPassword || ''}
+                    onChange={handleChange}
+                />
                 <p className='error'>{errorMessage}</p>
-                <button type='submit'>Submit</button>
+                <button type='submit' className='signUpButton'>Submit</button>
             </form>
         </div>
     )

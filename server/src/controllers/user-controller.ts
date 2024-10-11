@@ -44,14 +44,68 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
+// GET /Users/:username
+
+export const getUserByUsername = async (req: Request, res: Response) => {
+  const { username } = req.params;
+  try {
+    const user = await User.findOne({ where: { username },
+      attributes: { exclude: ["password"] },
+    });
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message })
+  }
+};
+
+// GET /Users/:email
+
+export const getUserByEmail = async (req: Request, res: Response) => {
+  const { email } = req.params;
+  try {
+    const user = await User.findOne({ where: { email },
+      attributes: { exclude: ["password"] },
+    });
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message })
+  }
+};
+
 // POST /Users
 export const createUser = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
+  
+  if (!username || !email || !password || !confirmPassword) {
+    return res.status(400).json({ message: "Please fill out all fields" });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: "Passwords do not match" });
+  }
+
+  let user = await User.findOne({ where: { username } })
+      if (user) {
+        return res.status(400).json({ message: "Username already exists" });
+      }
+  let emailCheck = await User.findOne({ where: { email } })
+      if (emailCheck) {
+        return res.status(400).json({ message: "Email already taken" });
+      }
+
   try {
-    const newUser = await User.create({ username, email, password });
-    res.status(201).json(newUser);
+    await User.create({ username, email, password });
+    return res.status(201).json({ message: "User created successfully" });
   } catch (error: any) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 

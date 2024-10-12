@@ -37,7 +37,12 @@ const HomePage = () => {
       <AuthChecker /> {/* Check if the user is authenticated */}
       {!loginCheck ? ( // Display login notice if not logged in
         <div className="login-notice">
-          <h1>Login to search events near you!</h1>
+          <img
+            src="./public/images/login.png"
+            alt="Event Photo"
+            className="login-photo"
+          />
+          <h1>Your Next Adventure Awaits – Log In to Find Events Near You!</h1>
         </div>
       ) : (
         // Display upcoming events, search events, and hotels

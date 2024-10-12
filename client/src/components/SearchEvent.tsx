@@ -44,7 +44,7 @@ const SearchEvent = ({ city }: SearchEventProps) => {
     const retrievedEvents = await retrieveEvents(search);
     setEvents(retrievedEvents);
     city(search);
-    setSearchMessage(search ? `Results for ${search}` : '');
+    setSearchMessage(search ? `Events in ${search}` : '');
     // clear the search field
     setSearch('');
   };
@@ -71,11 +71,11 @@ const SearchEvent = ({ city }: SearchEventProps) => {
               />
               <button type="submit">Search</button>
             </form>
-            <p>{searchMessage}</p>
+            <h2>{searchMessage}</h2>
           </div>
           {events.length === 0 ? (
             <div className="no-results">
-              <h2>Search for an event</h2>
+              <h2>Find Your Next Event</h2>
             </div>
           ) : (
             <div className="search-results">

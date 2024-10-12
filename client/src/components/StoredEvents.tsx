@@ -33,7 +33,7 @@ const StoredEvents: React.FC<StoredEventsProps> = ({
   return (
     <div className="stored-events">
       <div className="stored-events-header">
-        <h2>Stored Events</h2>
+        <h2>Saved Events</h2>
       </div>
       <div className="stored-events-table">
         <table>

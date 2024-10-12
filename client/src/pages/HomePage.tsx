@@ -2,6 +2,7 @@ import { useState, useLayoutEffect, useEffect } from 'react';
 import UpcomingEvents from '../components/UpcomingEvents';
 import SearchEvent from '../components/SearchEvent';
 import AuthChecker from '../components/AuthChecker';
+import loginPhoto from '../assets/images/login.png';
 import Hotels from '../components/Hotels';
 import auth from '../utils/auth';
 
@@ -37,11 +38,7 @@ const HomePage = () => {
       <AuthChecker /> {/* Check if the user is authenticated */}
       {!loginCheck ? ( // Display login notice if not logged in
         <div className="login-notice">
-          <img
-            src="./public/images/login.png"
-            alt="Event Photo"
-            className="login-photo"
-          />
+          <img src={loginPhoto} alt="Event Photo" className="login-photo" />
           <h1>Your Next Adventure Awaits – Log In to Find Events Near You!</h1>
         </div>
       ) : (

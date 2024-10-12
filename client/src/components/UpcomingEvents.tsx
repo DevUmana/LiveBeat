@@ -23,7 +23,7 @@ const UpcomingEvents = () => {
     <>
       <section className="eventsNearBy">
         <div className="events-x1">
-          <h2>Upcoming Events!</h2>
+          <h2>NYC's Upcoming Events</h2>
           <div className="events">
             {events.map((event, index) => (
               <Card key={index} event={event} />

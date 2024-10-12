@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <>
       <header>
-        <h1 className="header-title">Welcome to LiveBeat</h1>
+        <h1 className="header-title">Welcome to LiveBeat!</h1>
         <div className="button-group">
           {loginCheck ? (
             <button

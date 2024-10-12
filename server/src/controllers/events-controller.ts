@@ -17,8 +17,10 @@ export const getAllEvents = async (req: Request, res: Response) => {
 
 // GET /Events/:id
 export const getEventById = async (req: Request, res: Response) => {
+  // get the id from the request parameters
   const { id } = req.params;
   try {
+    // find the event by the id
     const event = await Event.findByPk(id);
     if (event) {
       res.json(event);
@@ -32,6 +34,7 @@ export const getEventById = async (req: Request, res: Response) => {
 
 // POST /Events
 export const createEvent = async (req: Request, res: Response) => {
+  // get the title, date, address, thumbnail, and link from the request body
   const { title, date, address, thumbnail, link } = req.body;
   const userId = req.user?.userId || 0;
 
@@ -52,6 +55,7 @@ export const createEvent = async (req: Request, res: Response) => {
 
 // DELETE /Events/:id
 export const deleteEvent = async (req: Request, res: Response) => {
+  // get the id from the request parameters
   const { id } = req.params;
   try {
     const event = await Event.findByPk(id);

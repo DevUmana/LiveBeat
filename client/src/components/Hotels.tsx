@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react";
-import { getHotels } from "../api/hotelsAPI";
 import { HotelData } from "../interfaces/HotelData";
+import { getHotels } from "../api/hotelsAPI";
+import { useEffect, useState } from "react";
 import HotelCard from "./HotelCard";
 
+// Interface for HotelsProps
 interface HotelsProps {
   city: string;
 }
 
+// Hotels component with city prop
 const Hotels = ({ city }: HotelsProps) => {
+  // State to store hotels
   const [hotels, setHotels] = useState<HotelData[]>([]);
 
+  // Fetch hotels on city change
   useEffect(() => {
     const fetchHotels = async () => {
       const hotels = await getHotels(city); // Pass city to the API call
@@ -22,6 +26,7 @@ const Hotels = ({ city }: HotelsProps) => {
     }
   }, [city]);
 
+  // Display hotels
   return (
     <>
       <section className="eventsNearBy">

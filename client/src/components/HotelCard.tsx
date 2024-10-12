@@ -1,10 +1,12 @@
-import React from "react";
 import { HotelData } from "../interfaces/HotelData";
+import React from "react";
 
+// Interface for HotelProps
 interface HotelProps {
   hotel: HotelData;
 }
 
+// Card component with hotel
 const HotelCard: React.FC<HotelProps> = ({ hotel }) => {
   return (
     <>

@@ -1,6 +1,7 @@
 import { DataTypes, Sequelize, Model, Optional } from "sequelize";
 import bcrypt from "bcrypt";
 
+// Define the attributes of the User model
 interface UserAttributes {
   id: number;
   username: string;
@@ -8,8 +9,10 @@ interface UserAttributes {
   password: string;
 }
 
+// Define the attributes of the User model that can be null
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
+// Define the User model
 export class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
@@ -34,6 +37,7 @@ export class User
   }
 }
 
+// Define the User model factory
 export function UserFactory(sequelize: Sequelize): typeof User {
   User.init(
     {

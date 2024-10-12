@@ -1,6 +1,7 @@
-import React from "react";
 import { deleteEvent } from "../api/eventsAPI";
+import React from "react";
 
+// Event interface
 interface Event {
   id: number;
   title: string;
@@ -10,21 +11,25 @@ interface Event {
   thumbnail: string;
 }
 
+// Props for the StoredEvents component
 interface StoredEventsProps {
   eventList: Event[];
-  onEventRemoved: () => void; // Callback function to notify parent component of removal
+  onEventRemoved: () => void; // Callback function
 }
 
+// Remove an event from the database
 const removeEvent = async (event: Event, onEventRemoved: () => void) => {
   console.log("Removing event", event);
   await deleteEvent(event.id);
   onEventRemoved(); // Call the callback to notify parent of removal
 };
 
+// StoredEvents component
 const StoredEvents: React.FC<StoredEventsProps> = ({
   eventList,
   onEventRemoved,
 }) => {
+  // Return the stored events table
   return (
     <div className="stored-events">
       <div className="stored-events-header">

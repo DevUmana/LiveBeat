@@ -4,6 +4,8 @@ dotenv.config();
 
 const apiKey = process.env.HOTELS_API_KEY;
 
+// POST /hotels - Gets hotels for a given city
+
 export const getHotels = async (req: Request, res: Response): Promise<void> => {
   const city = req.body.city;
 
@@ -25,8 +27,10 @@ export const getHotels = async (req: Request, res: Response): Promise<void> => {
 
     const data = await response.json();
 
+    // Limit the number of hotels to 3
     data.results = data.results.slice(0, 3);
 
+    // Transform the data
     const hotels = data.results.map((hotel: any) => ({
       name: hotel.name,
       address: hotel.formatted_address,

@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
 import { retrieveUpcomingEvents } from "../api/ticketmasterAPI";
 import { EventData } from "../interfaces/EventData";
+import { useEffect, useState } from "react";
 import Card from "./Card";
 
+// UpcomingEvents component
 const UpcomingEvents = () => {
+  // State to store upcoming events
   const [events, setEvents] = useState<EventData[]>([]);
 
+  // Fetch upcoming events on component mount
   useEffect(() => {
     const fetchEvents = async () => {
       const events = await retrieveUpcomingEvents();
@@ -15,6 +18,7 @@ const UpcomingEvents = () => {
     fetchEvents();
   }, []);
 
+  // Display upcoming events
   return (
     <>
       <section className="eventsNearBy">

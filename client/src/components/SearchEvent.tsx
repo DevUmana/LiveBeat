@@ -1,29 +1,38 @@
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
-import StoredEvents from "./StoredEvents";
+import { EventData } from "../interfaces/EventData";
 import { retrieveEvents } from "../api/ticketmasterAPI";
 import { getEvents } from "../api/eventsAPI";
-import { EventData } from "../interfaces/EventData";
+import StoredEvents from "./StoredEvents";
 import Table from "./Table";
 
+// Interface for SearchEventProps
 interface SearchEventProps {
   city: (cityName: string) => void;
 }
 
+// SearchEvent component with city prop
 const SearchEvent = ({ city }: SearchEventProps) => {
+  // State to store search input
   const [search, setSearch] = useState<string>("");
+  // State to store search results
   const [eventList, setEventList] = useState([]);
+  // State to store search results
   const [events, setEvents] = useState<EventData[]>([]);
+  // State to store search message
   const [searchMessage, setSearchMessage] = useState<string>("");
 
+  // Fetch stored events
   const fetchEvents = async () => {
     const storedEvents = await getEvents();
     setEventList(storedEvents || []);
   };
 
+  // Fetch events on component mount
   useEffect(() => {
     fetchEvents(); // Initial load to fetch stored events
   }, []);
 
+  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -40,10 +49,12 @@ const SearchEvent = ({ city }: SearchEventProps) => {
     setSearch("");
   };
 
+  // Handle text change
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
+  // Return the search event form
   return (
     <>
       <section className="section-se">

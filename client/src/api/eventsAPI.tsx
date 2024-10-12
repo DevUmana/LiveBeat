@@ -1,8 +1,9 @@
-//import { ApiMessage } from "../interfaces/ApiMessage";
 import { EventData } from "../interfaces/EventData";
 import Auth from "../utils/auth";
 
+// Get all events
 const getEvents = async () => {
+  // Make a GET request to the server to get all events
   try {
     const response = await fetch("/api/events/", {
       headers: {
@@ -23,7 +24,9 @@ const getEvents = async () => {
   }
 };
 
+// Delete an event
 const deleteEvent = async (id: number | null) => {
+  // Make a DELETE request to the server to delete the event
   try {
     const response = await fetch(`/api/events/${id}`, {
       method: "DELETE",
@@ -44,7 +47,9 @@ const deleteEvent = async (id: number | null) => {
   }
 };
 
+// Create an event
 const createEvent = async (body: EventData) => {
+  // Make a POST request to the server to create an event
   try {
     const response = await fetch("/api/events/", {
       method: "POST",

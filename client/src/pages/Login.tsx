@@ -1,17 +1,21 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-
-import Auth from "../utils/auth";
 import { login } from "../api/authAPI";
+import Auth from "../utils/auth";
 
+// Login component
 const Login = () => {
+  // State to store login data
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
 
+  // State to store error status
   const [error, setError] = useState(false);
+  // State to store error message
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Handle form change
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -22,6 +26,7 @@ const Login = () => {
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
@@ -34,10 +39,11 @@ const Login = () => {
     }
   };
 
+  // Return the login form
   return (
-    <div className="container">
-      <form className="form" onSubmit={handleSubmit}>
-        <h1>Login</h1>
+    <div className="authContainer">
+      <h1>Login</h1>
+      <form className="authForm" onSubmit={handleSubmit}>
         <label>Username</label>
         <input
           type="text"
@@ -53,7 +59,9 @@ const Login = () => {
           onChange={handleChange}
         />
         <div>{error && <p className="error">{errorMessage}</p>}</div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="authFormButton">
+          Submit
+        </button>
       </form>
     </div>
   );

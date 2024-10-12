@@ -7,7 +7,7 @@ function App() {
     <div className="container">
       <Header />
       <main>
-        <Outlet /> {/* This renders the children components */}
+        <Outlet />
       </main>
       <Footer />
     </div>

@@ -7,9 +7,11 @@ import { hotelsRouter } from "./hotels-routes.js";
 
 const router = Router();
 
+// Use the authenticateToken middleware for all routes
 router.use("/search", authenticateToken, ticketmasterRouter);
 router.use("/events", authenticateToken, eventsRouter);
 router.use("/hotels", authenticateToken, hotelsRouter);
+
 router.use("/users", userRouter);
 
 export default router;

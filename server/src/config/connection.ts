@@ -1,19 +1,23 @@
 import dotenv from "dotenv";
-dotenv.config();
-
 import { Sequelize } from "sequelize";
 
+dotenv.config();
+
+// Create a new Sequelize instance
 const sequelize = process.env.DB_URL
-  ? new Sequelize(process.env.DB_URL, {
+  ? // If the DB_URL environment variable is set, use it to connect to the database
+    new Sequelize(process.env.DB_URL, {
       dialect: "postgres",
       dialectOptions: {
+        decimalNumbers: true,
         ssl: {
-          require: true, // Enforce SSL
-          rejectUnauthorized: false, // This allows self-signed certificates, if any
+          require: true,
+          rejectUnauthorized: false,
         },
       },
     })
-  : new Sequelize(
+  : // Otherwise, use the environment variables for the database connection
+    new Sequelize(
       process.env.DB_NAME || "",
       process.env.DB_USER || "",
       process.env.DB_PASSWORD,
@@ -22,10 +26,6 @@ const sequelize = process.env.DB_URL
         dialect: "postgres",
         dialectOptions: {
           decimalNumbers: true,
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
         },
       }
     );

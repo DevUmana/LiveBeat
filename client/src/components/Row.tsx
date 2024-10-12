@@ -1,12 +1,15 @@
-import React from "react";
 import { EventData } from "../interfaces/EventData";
+import React from "react";
 
+// Interface for RowProps
 interface RowProps {
   event: EventData;
-  addEvent: () => void;
+  addEvent: () => void; // addEvent function
 }
 
+// Row component with event data and addEvent function
 const Row: React.FC<RowProps> = ({ event, addEvent }) => {
+  // Return the row with event data
   return (
     <tr>
       <td>{event.title}</td>

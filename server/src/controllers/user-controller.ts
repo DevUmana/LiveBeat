@@ -3,6 +3,7 @@ import { User } from "../models/user.js";
 
 // GET /Users
 export const getAllUsers = async (_req: Request, res: Response) => {
+  // get the user from the request
   try {
     const users = await User.findAll({
       attributes: { exclude: ["password"] },
@@ -13,7 +14,9 @@ export const getAllUsers = async (_req: Request, res: Response) => {
   }
 };
 
+// GET /Users/current
 export const getCurrentUser = async (req: Request, res: Response) => {
+  // get the user from the request
   const { username } = req.body;
   try {
     const user = await User.findOne({ where: { username } });
@@ -29,6 +32,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
 
 // GET /Users/:id
 export const getUserById = async (req: Request, res: Response) => {
+  // get the id from the request parameters
   const { id } = req.params;
   try {
     const user = await User.findByPk(id, {
@@ -45,11 +49,12 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 // GET /Users/:username
-
 export const getUserByUsername = async (req: Request, res: Response) => {
+  // get the username from the request parameters
   const { username } = req.params;
   try {
-    const user = await User.findOne({ where: { username },
+    const user = await User.findOne({
+      where: { username },
       attributes: { exclude: ["password"] },
     });
     if (user) {
@@ -58,16 +63,17 @@ export const getUserByUsername = async (req: Request, res: Response) => {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: error.message });
   }
 };
 
 // GET /Users/:email
-
 export const getUserByEmail = async (req: Request, res: Response) => {
+  // get the email from the request parameters
   const { email } = req.params;
   try {
-    const user = await User.findOne({ where: { email },
+    const user = await User.findOne({
+      where: { email },
       attributes: { exclude: ["password"] },
     });
     if (user) {
@@ -76,14 +82,15 @@ export const getUserByEmail = async (req: Request, res: Response) => {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: error.message });
   }
 };
 
 // POST /Users
 export const createUser = async (req: Request, res: Response) => {
+  // get the username, email, password, and confirmPassword from the request body
   const { username, email, password, confirmPassword } = req.body;
-  
+
   if (!username || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: "Please fill out all fields" });
   }
@@ -92,14 +99,14 @@ export const createUser = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "Passwords do not match" });
   }
 
-  let user = await User.findOne({ where: { username } })
-      if (user) {
-        return res.status(400).json({ message: "Username already exists" });
-      }
-  let emailCheck = await User.findOne({ where: { email } })
-      if (emailCheck) {
-        return res.status(400).json({ message: "Email already taken" });
-      }
+  let user = await User.findOne({ where: { username } });
+  if (user) {
+    return res.status(400).json({ message: "Username already exists" });
+  }
+  let emailCheck = await User.findOne({ where: { email } });
+  if (emailCheck) {
+    return res.status(400).json({ message: "Email already taken" });
+  }
 
   try {
     await User.create({ username, email, password });
@@ -111,6 +118,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 // PUT /Users/:id
 export const updateUser = async (req: Request, res: Response) => {
+  // get the id from the request parameters
   const { id } = req.params;
   const { username, password } = req.body;
   try {
@@ -130,6 +138,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
 // DELETE /Users/:id
 export const deleteUser = async (req: Request, res: Response) => {
+  // get the id from the request parameters
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);

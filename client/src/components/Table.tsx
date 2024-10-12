@@ -1,8 +1,9 @@
-import React from "react";
-import Row from "./Row";
 import { createEvent, getEvents } from "../api/eventsAPI";
 import { EventData } from "../interfaces/EventData";
+import React from "react";
+import Row from "./Row";
 
+// Interface for TableProps
 interface TableProps {
   events: EventData[];
   onEventAdded: () => void; // Callback function to notify parent of new event addition
@@ -14,6 +15,7 @@ const addEvent = async (event: EventData, onEventAdded: () => void) => {
 
   // check if the event already exists
   const events = await getEvents();
+  // find the event by title
   const foundEvent = events.find((e: EventData) => e.title === event.title);
 
   if (foundEvent) {
@@ -25,6 +27,7 @@ const addEvent = async (event: EventData, onEventAdded: () => void) => {
   onEventAdded(); // Notify parent component to refresh the event list
 };
 
+// Table component with events and onEventAdded callback
 const Table: React.FC<TableProps> = ({ events, onEventAdded }) => {
   return (
     <>

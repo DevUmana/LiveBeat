@@ -5,10 +5,14 @@ import AuthChecker from "../components/AuthChecker";
 import Hotels from "../components/Hotels";
 import auth from "../utils/auth";
 
+// HomePage component
 const HomePage = () => {
+  // State to store login check
   const [loginCheck, setLoginCheck] = useState(false);
+  // State to store selected city
   const [selectedCity, setSelectedCity] = useState("");
 
+  // Check if the user is logged in
   const checkLogin = () => {
     if (auth.loggedIn()) {
       setLoginCheck(true);
@@ -17,26 +21,31 @@ const HomePage = () => {
     }
   };
 
+  // Check login on component mount
   useLayoutEffect(() => {
     checkLogin();
   }, []);
 
+  // Check login on state change
   useEffect(() => {
     checkLogin();
   }, [loginCheck]);
 
+  // Display the homepage
   return (
     <>
-      <AuthChecker />
-      {!loginCheck ? (
+      <AuthChecker /> {/* Check if the user is authenticated */}
+      {!loginCheck ? ( // Display login notice if not logged in
         <div className="login-notice">
           <h1>Login to search events near you!</h1>
         </div>
       ) : (
+        // Display upcoming events, search events, and hotels
         <>
-          <UpcomingEvents />
-          <SearchEvent city={setSelectedCity} />
-          {selectedCity && <Hotels city={selectedCity} />}
+          <UpcomingEvents /> {/* Display upcoming events */}
+          <SearchEvent city={setSelectedCity} /> {/* Search for events */}
+          {selectedCity && <Hotels city={selectedCity} />}{" "}
+          {/* Display hotels */}
         </>
       )}
     </>

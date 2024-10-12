@@ -1,10 +1,12 @@
-import React from "react";
 import { EventData } from "../interfaces/EventData";
+import React from "react";
 
+// Interface for CardProps
 interface CardProps {
   event: EventData;
 }
 
+// Card component
 const Card: React.FC<CardProps> = ({ event }) => {
   return (
     <>

@@ -1,6 +1,8 @@
 import Auth from "../utils/auth";
 
+// retrieve all users
 const retrieveUsers = async () => {
+  // Make a GET request to the server to get all users
   try {
     const response = await fetch("/api/users", {
       headers: {
@@ -23,6 +25,7 @@ const retrieveUsers = async () => {
 
 // retrieve current logged in user
 const retrieveCurrentUser = async () => {
+  // Make a GET request to the server to get the current user
   try {
     const response = await fetch("/api/users/current", {
       headers: {

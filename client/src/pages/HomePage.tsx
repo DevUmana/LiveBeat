@@ -1,16 +1,16 @@
-import { useState, useLayoutEffect, useEffect } from "react";
-import UpcomingEvents from "../components/UpcomingEvents";
-import SearchEvent from "../components/SearchEvent";
-import AuthChecker from "../components/AuthChecker";
-import Hotels from "../components/Hotels";
-import auth from "../utils/auth";
+import { useState, useLayoutEffect, useEffect } from 'react';
+import UpcomingEvents from '../components/UpcomingEvents';
+import SearchEvent from '../components/SearchEvent';
+import AuthChecker from '../components/AuthChecker';
+import Hotels from '../components/Hotels';
+import auth from '../utils/auth';
 
 // HomePage component
 const HomePage = () => {
   // State to store login check
   const [loginCheck, setLoginCheck] = useState(false);
   // State to store selected city
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState('');
 
   // Check if the user is logged in
   const checkLogin = () => {
@@ -44,7 +44,7 @@ const HomePage = () => {
         <>
           <UpcomingEvents /> {/* Display upcoming events */}
           <SearchEvent city={setSelectedCity} /> {/* Search for events */}
-          {selectedCity && <Hotels city={selectedCity} />}{" "}
+          {selectedCity && <Hotels city={selectedCity} />}{' '}
           {/* Display hotels */}
         </>
       )}

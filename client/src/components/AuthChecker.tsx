@@ -1,5 +1,5 @@
-import useInterval from "../utils/interval";
-import auth from "../utils/auth";
+import useInterval from '../utils/interval';
+import auth from '../utils/auth';
 
 // Component to check if the user is authenticated
 const AuthChecker = () => {

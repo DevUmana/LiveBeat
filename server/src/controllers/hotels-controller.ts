@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import dotenv from "dotenv";
+import { Request, Response } from 'express';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const apiKey = process.env.HOTELS_API_KEY;
@@ -10,7 +10,7 @@ export const getHotels = async (req: Request, res: Response): Promise<void> => {
   const city = req.body.city;
 
   if (!city) {
-    res.status(400).json({ error: "City query parameter is required" });
+    res.status(400).json({ error: 'City query parameter is required' });
     return;
   }
 
@@ -22,7 +22,7 @@ export const getHotels = async (req: Request, res: Response): Promise<void> => {
     );
 
     if (!response.ok) {
-      throw new Error("Invalid API response, check network tab!");
+      throw new Error('Invalid API response, check network tab!');
     }
 
     const data = await response.json();
@@ -44,8 +44,8 @@ export const getHotels = async (req: Request, res: Response): Promise<void> => {
 
     res.json({ hotels });
   } catch (error) {
-    console.error("Error fetching hotels:", error);
-    res.status(500).json({ error: "An error occurred while fetching hotels" });
+    console.error('Error fetching hotels:', error);
+    res.status(500).json({ error: 'An error occurred while fetching hotels' });
   }
 };
 

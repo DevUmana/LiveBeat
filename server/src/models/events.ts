@@ -1,4 +1,4 @@
-import { DataTypes, Sequelize, Model, Optional } from "sequelize";
+import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 
 // Define the attributes of the Event model
 interface EventAttributes {
@@ -12,7 +12,7 @@ interface EventAttributes {
 }
 
 // Define the attributes of the Event model that can be null
-interface EventCreationAttributes extends Optional<EventAttributes, "id"> {}
+interface EventCreationAttributes extends Optional<EventAttributes, 'id'> {}
 
 // Define the Event model
 export class Event
@@ -64,14 +64,14 @@ export function EventFactory(sequelize: Sequelize): typeof Event {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "users",
-          key: "id",
+          model: 'users',
+          key: 'id',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
       },
     },
     {
-      tableName: "events",
+      tableName: 'events',
       sequelize,
       timestamps: true,
     }

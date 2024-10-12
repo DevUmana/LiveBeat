@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import dotenv from "dotenv";
+import { Request, Response } from 'express';
+import dotenv from 'dotenv';
 dotenv.config();
 
 // Use environment variable to store the API key securely
@@ -9,7 +9,7 @@ export const getEvents = async (req: Request, res: Response): Promise<void> => {
   const city = req.body.city;
 
   if (!city) {
-    res.status(400).json({ error: "City query parameter is required" });
+    res.status(400).json({ error: 'City query parameter is required' });
     return;
   }
 
@@ -22,7 +22,7 @@ export const getEvents = async (req: Request, res: Response): Promise<void> => {
     );
 
     if (!response.ok) {
-      throw new Error("Invalid API response, check network tab!");
+      throw new Error('Invalid API response, check network tab!');
     }
 
     const data = await response.json();
@@ -30,11 +30,11 @@ export const getEvents = async (req: Request, res: Response): Promise<void> => {
 
     res.json(data); // Send the events data as a JSON response
   } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(500).json({ error: "An error occurred while fetching events" });
+    console.error('Error fetching events:', error);
+    res.status(500).json({ error: 'An error occurred while fetching events' });
   }
 
-  console.log("Fetching events in", city);
+  console.log('Fetching events in', city);
 };
 
 export const getUpcomingEvents = async (
@@ -48,14 +48,14 @@ export const getUpcomingEvents = async (
     );
 
     if (!response.ok) {
-      throw new Error("Invalid API response, check network tab!");
+      throw new Error('Invalid API response, check network tab!');
     }
 
     const data = await response.json();
 
     res.json(data); // Send the events data as a JSON response
   } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(500).json({ error: "An error occurred while fetching events" });
+    console.error('Error fetching events:', error);
+    res.status(500).json({ error: 'An error occurred while fetching events' });
   }
 };

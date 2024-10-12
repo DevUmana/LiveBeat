@@ -1,7 +1,7 @@
-import { createEvent, getEvents } from "../api/eventsAPI";
-import { EventData } from "../interfaces/EventData";
-import React from "react";
-import Row from "./Row";
+import { createEvent, getEvents } from '../api/eventsAPI';
+import { EventData } from '../interfaces/EventData';
+import React from 'react';
+import Row from './Row';
 
 // Interface for TableProps
 interface TableProps {
@@ -11,7 +11,7 @@ interface TableProps {
 
 // add event to the list
 const addEvent = async (event: EventData, onEventAdded: () => void) => {
-  console.log("Adding event", event);
+  console.log('Adding event', event);
 
   // check if the event already exists
   const events = await getEvents();
@@ -19,7 +19,7 @@ const addEvent = async (event: EventData, onEventAdded: () => void) => {
   const foundEvent = events.find((e: EventData) => e.title === event.title);
 
   if (foundEvent) {
-    console.log("Event already exists");
+    console.log('Event already exists');
     return;
   }
 

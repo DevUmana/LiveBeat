@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, useState, useEffect } from "react";
-import { EventData } from "../interfaces/EventData";
-import { retrieveEvents } from "../api/ticketmasterAPI";
-import { getEvents } from "../api/eventsAPI";
-import StoredEvents from "./StoredEvents";
-import Table from "./Table";
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { EventData } from '../interfaces/EventData';
+import { retrieveEvents } from '../api/ticketmasterAPI';
+import { getEvents } from '../api/eventsAPI';
+import StoredEvents from './StoredEvents';
+import Table from './Table';
 
 // Interface for SearchEventProps
 interface SearchEventProps {
@@ -13,13 +13,13 @@ interface SearchEventProps {
 // SearchEvent component with city prop
 const SearchEvent = ({ city }: SearchEventProps) => {
   // State to store search input
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>('');
   // State to store search results
   const [eventList, setEventList] = useState([]);
   // State to store search results
   const [events, setEvents] = useState<EventData[]>([]);
   // State to store search message
-  const [searchMessage, setSearchMessage] = useState<string>("");
+  const [searchMessage, setSearchMessage] = useState<string>('');
 
   // Fetch stored events
   const fetchEvents = async () => {
@@ -37,16 +37,16 @@ const SearchEvent = ({ city }: SearchEventProps) => {
     e.preventDefault();
 
     if (!search) {
-      setSearchMessage("Please enter a city");
+      setSearchMessage('Please enter a city');
       return;
     }
 
     const retrievedEvents = await retrieveEvents(search);
     setEvents(retrievedEvents);
     city(search);
-    setSearchMessage(search ? `Results for ${search}` : "");
+    setSearchMessage(search ? `Results for ${search}` : '');
     // clear the search field
-    setSearch("");
+    setSearch('');
   };
 
   // Handle text change

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import auth from "../utils/auth";
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import auth from '../utils/auth';
 
 const Header = () => {
   // State to check if the user is logged in
@@ -36,7 +36,7 @@ const Header = () => {
           ) : (
             <div>
               <button type="button">
-                <Link to="/signup">Signup</Link>{" "}
+                <Link to="/signup">Signup</Link>{' '}
                 {/* Redirect to the signup page */}
               </button>
               <button type="button">

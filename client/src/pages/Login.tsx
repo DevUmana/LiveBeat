@@ -1,19 +1,19 @@
-import { useState, FormEvent, ChangeEvent } from "react";
-import { login } from "../api/authAPI";
-import Auth from "../utils/auth";
+import { useState, FormEvent, ChangeEvent } from 'react';
+import { login } from '../api/authAPI';
+import Auth from '../utils/auth';
 
 // Login component
 const Login = () => {
   // State to store login data
   const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
   // State to store error status
   const [error, setError] = useState(false);
   // State to store error message
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Handle form change
   const handleChange = (
@@ -33,9 +33,9 @@ const Login = () => {
       const data = await login(loginData);
       Auth.login(data.token);
     } catch (err) {
-      console.error("Failed to login", err);
+      console.error('Failed to login', err);
       setError(true);
-      setErrorMessage("Failed to login");
+      setErrorMessage('Failed to login');
     }
   };
 
@@ -48,14 +48,14 @@ const Login = () => {
         <input
           type="text"
           name="username"
-          value={loginData.username || ""}
+          value={loginData.username || ''}
           onChange={handleChange}
         />
         <label>Password</label>
         <input
           type="password"
           name="password"
-          value={loginData.password || ""}
+          value={loginData.password || ''}
           onChange={handleChange}
         />
         <div>{error && <p className="error">{errorMessage}</p>}</div>

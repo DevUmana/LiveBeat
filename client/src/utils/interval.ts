@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 // Custom hook to handle intervals
 const useInterval = (callback: () => void, delay: number) => {

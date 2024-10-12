@@ -1,5 +1,5 @@
-import { HotelData } from "../interfaces/HotelData";
-import React from "react";
+import { HotelData } from '../interfaces/HotelData';
+import React from 'react';
 
 // Interface for HotelProps
 interface HotelProps {
@@ -13,8 +13,8 @@ const HotelCard: React.FC<HotelProps> = ({ hotel }) => {
       <div className="card">
         <div className="card-image">
           <img
-            src={hotel.photos || "fallback-image-url.jpg"}
-            alt={hotel.name || "Hotel Image"}
+            src={hotel.photos || 'fallback-image-url.jpg'}
+            alt={hotel.name || 'Hotel Image'}
           />
         </div>
         <div className="card-content">
@@ -22,10 +22,10 @@ const HotelCard: React.FC<HotelProps> = ({ hotel }) => {
           <p>
             {hotel.rating
               ? `Rating: ${hotel.rating.toFixed(1)}`
-              : "Rating not available"}
+              : 'Rating not available'}
           </p>
           <p>{hotel.address}</p>
-          <a href={hotel.link || "#"} target="_blank" rel="noreferrer">
+          <a href={hotel.link || '#'} target="_blank" rel="noreferrer">
             More info
           </a>
         </div>

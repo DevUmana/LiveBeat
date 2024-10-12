@@ -1,21 +1,21 @@
-import { EventData } from "../interfaces/EventData";
-import Auth from "../utils/auth";
+import { EventData } from '../interfaces/EventData';
+import Auth from '../utils/auth';
 
 // Function to retrieve events from the Ticketmaster API
 const retrieveEvents = async (city: string | undefined) => {
   // Make a POST request to the API
   try {
-    const response = await fetch("/api/search/", {
+    const response = await fetch('/api/search/', {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${Auth.getToken()}`,
       },
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({ city: city }),
     });
 
     if (!response.ok) {
-      throw new Error("Invalid API response, check network tab!");
+      throw new Error('Invalid API response, check network tab!');
     }
 
     const data = await response.json();
@@ -35,11 +35,11 @@ const retrieveEvents = async (city: string | undefined) => {
         index === self.findIndex((t: any) => t.title === event.title)
     );
 
-    console.log("Unique Events:", uniqueEvents);
+    console.log('Unique Events:', uniqueEvents);
 
     return uniqueEvents; // Return the transformed events array
   } catch (err) {
-    console.log("Error from data retrieval: ", err);
+    console.log('Error from data retrieval: ', err);
     return [];
   }
 };
@@ -48,16 +48,16 @@ const retrieveEvents = async (city: string | undefined) => {
 const retrieveUpcomingEvents = async () => {
   // Make a GET request to the server to get all events
   try {
-    const response = await fetch("/api/search/upcoming", {
+    const response = await fetch('/api/search/upcoming', {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${Auth.getToken()}`,
       },
-      method: "GET",
+      method: 'GET',
     });
 
     if (!response.ok) {
-      throw new Error("Invalid API response, check network tab!");
+      throw new Error('Invalid API response, check network tab!');
     }
 
     const data = await response.json();
@@ -82,7 +82,7 @@ const retrieveUpcomingEvents = async () => {
 
     return uniqueEvents3; // Return the transformed events array
   } catch (err) {
-    console.log("Error from data retrieval: ", err);
+    console.log('Error from data retrieval: ', err);
     return [];
   }
 };

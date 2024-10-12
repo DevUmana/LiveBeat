@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-import { Sequelize } from "sequelize";
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
 dotenv.config();
 
@@ -7,7 +7,7 @@ dotenv.config();
 const sequelize = process.env.DB_URL
   ? // If the DB_URL environment variable is set, use it to connect to the database
     new Sequelize(process.env.DB_URL, {
-      dialect: "postgres",
+      dialect: 'postgres',
       dialectOptions: {
         decimalNumbers: true,
         ssl: {
@@ -18,12 +18,12 @@ const sequelize = process.env.DB_URL
     })
   : // Otherwise, use the environment variables for the database connection
     new Sequelize(
-      process.env.DB_NAME || "",
-      process.env.DB_USER || "",
+      process.env.DB_NAME || '',
+      process.env.DB_USER || '',
       process.env.DB_PASSWORD,
       {
-        host: "localhost",
-        dialect: "postgres",
+        host: 'localhost',
+        dialect: 'postgres',
         dialectOptions: {
           decimalNumbers: true,
         },

@@ -1,4 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from "react";
+import './Login.css';
 
 import Auth from "../utils/auth";
 import { login } from "../api/authAPI";
@@ -36,6 +37,11 @@ const Login = () => {
 
   return (
     <div className="container">
+      {/* Add banner above the form */}
+      <div className="banner">
+        <img src="https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2022%2F06%2Fcoachella-festival-2023-dates-schedule-announement-1.jpg?q=75&w=800&cbr=1&fit=max" alt="Banner" />
+      </div>
+
       <form className="form" onSubmit={handleSubmit}>
         <h1>Login</h1>
         <label>Username</label>
@@ -60,3 +66,4 @@ const Login = () => {
 };
 
 export default Login;
+

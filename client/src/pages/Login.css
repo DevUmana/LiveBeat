@@ -1,0 +1,144 @@
+/* Reset all margins and paddings globally */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure the body takes the full viewport height */
+  body {
+    background-color: #ecf0f1; /* Light background */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Ensure header spans the full width */
+  header {
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw; /* Full viewport width */
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+  
+  /* Ensure footer spans the full width */
+  footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 20px;
+    width: 100vw; /* Full viewport width */
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+  
+  /* Main section grows and centers the form */
+  main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px; /* Reduced padding to allow space for header */
+    padding-bottom: 40px; /* Reduced padding to allow space for footer */
+    flex-direction: column; /* Allows the banner to be above the form */
+  }
+  
+  /* Banner styling */
+  .banner {
+    width: 100%;
+    max-width: 800px; /* Adjust the width based on your design */
+    margin-bottom: 20px; /* Spacing between banner and form */
+  }
+  
+  .banner img {
+    width: 100%;
+    border-radius: 10px; /* Optional: Rounds the banner's corners */
+  }
+  
+  /* Form container */
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px; /* Increased container size */
+    padding: 20px;
+    width: 100%;
+  }
+  
+  /* Form styling */
+  .form {
+    background-color: white;
+    padding: 50px; /* Increased padding for a more spacious feel */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Form heading */
+  .form h1 {
+    color: #347928;
+    margin-bottom: 20px;
+  }
+  
+  /* Label styling */
+  .form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    color: #347928;
+    font-weight: bold;
+  }
+  
+  /* Input field styling */
+  .form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+  }
+  
+  /* Button styling */
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #347928;
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ecedf7;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: red;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

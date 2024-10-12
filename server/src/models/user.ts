@@ -1,5 +1,5 @@
-import { DataTypes, Sequelize, Model, Optional } from "sequelize";
-import bcrypt from "bcrypt";
+import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 // Define the attributes of the User model
 interface UserAttributes {
@@ -10,7 +10,7 @@ interface UserAttributes {
 }
 
 // Define the attributes of the User model that can be null
-interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 // Define the User model
 export class User
@@ -65,7 +65,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       },
     },
     {
-      tableName: "users",
+      tableName: 'users',
       timestamps: true,
       sequelize,
       hooks: {
@@ -75,7 +75,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
           }
         },
         beforeUpdate: async (user: User) => {
-          if (user.changed("password")) {
+          if (user.changed('password')) {
             await user.setPassword(user.password);
           }
         },

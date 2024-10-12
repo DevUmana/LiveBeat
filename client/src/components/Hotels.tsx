@@ -1,7 +1,7 @@
-import { HotelData } from "../interfaces/HotelData";
-import { getHotels } from "../api/hotelsAPI";
-import { useEffect, useState } from "react";
-import HotelCard from "./HotelCard";
+import { HotelData } from '../interfaces/HotelData';
+import { getHotels } from '../api/hotelsAPI';
+import { useEffect, useState } from 'react';
+import HotelCard from './HotelCard';
 
 // Interface for HotelsProps
 interface HotelsProps {
@@ -21,7 +21,7 @@ const Hotels = ({ city }: HotelsProps) => {
     };
 
     if (city) {
-      console.log("city: ", city);
+      console.log('city: ', city);
       fetchHotels();
     }
   }, [city]);

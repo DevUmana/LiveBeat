@@ -1,5 +1,5 @@
-import { deleteEvent } from "../api/eventsAPI";
-import React from "react";
+import { deleteEvent } from '../api/eventsAPI';
+import React from 'react';
 
 // Event interface
 interface Event {
@@ -19,7 +19,7 @@ interface StoredEventsProps {
 
 // Remove an event from the database
 const removeEvent = async (event: Event, onEventRemoved: () => void) => {
-  console.log("Removing event", event);
+  console.log('Removing event', event);
   await deleteEvent(event.id);
   onEventRemoved(); // Call the callback to notify parent of removal
 };

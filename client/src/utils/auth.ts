@@ -1,5 +1,5 @@
-import { JwtPayload, jwtDecode } from "jwt-decode";
-import { UserData } from "../interfaces/UserData";
+import { JwtPayload, jwtDecode } from 'jwt-decode';
+import { UserData } from '../interfaces/UserData';
 
 class AuthService {
   // Get user data from token
@@ -16,8 +16,8 @@ class AuthService {
   // Redirect if user is not logged in
   redirectIfNotLoggedIn(navigate: Function) {
     if (!this.loggedIn()) {
-      localStorage.removeItem("id_token");
-      navigate("/login");
+      localStorage.removeItem('id_token');
+      navigate('/login');
       return true;
     }
   }
@@ -25,8 +25,8 @@ class AuthService {
   // Redirect if token is expired
   redirectIfExpired() {
     if (this.isTokenExpired(this.getToken())) {
-      localStorage.removeItem("id_token");
-      window.location.assign("/login");
+      localStorage.removeItem('id_token');
+      window.location.assign('/login');
       return true;
     }
   }
@@ -46,20 +46,20 @@ class AuthService {
 
   // Get token from local storage
   getToken(): string {
-    const loggedUser = localStorage.getItem("id_token") || "";
+    const loggedUser = localStorage.getItem('id_token') || '';
     return loggedUser;
   }
 
   // Login user and set token to local storage
   login(idToken: string) {
-    localStorage.setItem("id_token", idToken);
-    window.location.assign("/");
+    localStorage.setItem('id_token', idToken);
+    window.location.assign('/');
   }
 
   // Logout user by removing token from
   logout() {
-    localStorage.removeItem("id_token");
-    window.location.assign("/");
+    localStorage.removeItem('id_token');
+    window.location.assign('/');
   }
 }
 

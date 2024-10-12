@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { Event } from "../models/events.js";
+import { Request, Response } from 'express';
+import { Event } from '../models/events.js';
 
 // GET /Events
 export const getAllEvents = async (req: Request, res: Response) => {
@@ -25,7 +25,7 @@ export const getEventById = async (req: Request, res: Response) => {
     if (event) {
       res.json(event);
     } else {
-      res.status(404).json({ message: "Event not found" });
+      res.status(404).json({ message: 'Event not found' });
     }
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -61,9 +61,9 @@ export const deleteEvent = async (req: Request, res: Response) => {
     const event = await Event.findByPk(id);
     if (event) {
       await event.destroy();
-      res.json({ message: "Event deleted" });
+      res.json({ message: 'Event deleted' });
     } else {
-      res.status(404).json({ message: "Event not found" });
+      res.status(404).json({ message: 'Event not found' });
     }
   } catch (error: any) {
     res.status(500).json({ message: error.message });

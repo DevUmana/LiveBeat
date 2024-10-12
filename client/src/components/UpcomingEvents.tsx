@@ -1,7 +1,7 @@
-import { retrieveUpcomingEvents } from "../api/ticketmasterAPI";
-import { EventData } from "../interfaces/EventData";
-import { useEffect, useState } from "react";
-import Card from "./Card";
+import { retrieveUpcomingEvents } from '../api/ticketmasterAPI';
+import { EventData } from '../interfaces/EventData';
+import { useEffect, useState } from 'react';
+import Card from './Card';
 
 // UpcomingEvents component
 const UpcomingEvents = () => {
